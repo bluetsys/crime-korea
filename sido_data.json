@@ -1,0 +1,87 @@
+[
+  {
+    "SIDO_CD": "11",
+    "SIDO_NM": "서울특별시",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "21",
+    "SIDO_NM": "부산광역시",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "22",
+    "SIDO_NM": "대구광역시",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "23",
+    "SIDO_NM": "인천광역시",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "24",
+    "SIDO_NM": "광주광역시",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "25",
+    "SIDO_NM": "대전광역시",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "26",
+    "SIDO_NM": "울산광역시",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "29",
+    "SIDO_NM": "세종특별자치시",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "31",
+    "SIDO_NM": "경기도",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "32",
+    "SIDO_NM": "강원특별자치도",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "33",
+    "SIDO_NM": "충청북도",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "34",
+    "SIDO_NM": "충청남도",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "35",
+    "SIDO_NM": "전라북도",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "36",
+    "SIDO_NM": "전라남도",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "37",
+    "SIDO_NM": "경상북도",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "38",
+    "SIDO_NM": "경상남도",
+    "BASE_DATE": "20240630"
+  },
+  {
+    "SIDO_CD": "39",
+    "SIDO_NM": "제주특별자치도",
+    "BASE_DATE": "20240630"
+  }
+]
