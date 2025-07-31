@@ -406,6 +406,11 @@
         const width = 800;
         const height = 600;
 
+        // 기본 위치 설정 (중심 X: 296.01, 중심 Y: 195.98, 줌 레벨: 0.76)
+        const defaultTransform = d3.zoomIdentity
+            .translate(width/2 - 296.01 * 0.76, height/2 - 195.98 * 0.76)
+            .scale(0.76);
+
         // SVG 요소 생성
         const svg = d3.select("#map")
             .append("svg")
@@ -881,8 +886,9 @@
                 })
                 .style("display", "block");
 
-            // 초기 좌표 표시
-            updateCoordinates(d3.zoomIdentity);
+            // 초기 좌표 표시 및 기본 위치 적용
+            svg.call(zoom.transform, defaultTransform);
+            updateCoordinates(defaultTransform);
         }
 
         // 레이블 표시/숨기기 토글
@@ -896,7 +902,7 @@
         function resetZoom() {
             svg.transition()
                 .duration(750)
-                .call(zoom.transform, d3.zoomIdentity);
+                .call(zoom.transform, defaultTransform);
         }
 
         function zoomIn() {
