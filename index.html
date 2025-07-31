@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>한국 연도별 범죄율 지도 (2014-2023)</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
     <style>
         body {
             margin: 0;
@@ -12,7 +14,8 @@
             font-family: 'Malgun Gothic', sans-serif;
             background-color: #f5f5f5;
             height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         .container {
@@ -243,76 +246,15 @@
             font-size: 11px;
         }
 
-        /* GitHub 리본 스타일 */
-        .github-ribbon {
-            position: absolute;
-            top: 0;
-            right: 0;
-            z-index: 9999;
-            width: 150px;
-            height: 150px;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .github-ribbon a {
-            position: absolute;
-            top: 42px;
-            right: -40px;
-            transform: rotate(45deg);
-            width: 200px;
-            padding: 10px 0;
-            background: #333;
-            color: #fff;
-            text-align: center;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            pointer-events: auto;
-            transition: all 0.3s ease;
-        }
-
-        .github-ribbon a:hover {
-            background: #555;
-            transform: rotate(45deg) scale(1.05);
-        }
-
-        .github-ribbon a:before,
-        .github-ribbon a:after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            height: 10px;
-            background: linear-gradient(45deg, transparent 50%, rgba(0, 0, 0, 0.2) 50%);
-        }
-
-        @media (max-width: 768px) {
-            .github-ribbon {
-                width: 120px;
-                height: 120px;
-            }
-
-            .github-ribbon a {
-                top: 35px;
-                right: -35px;
-                width: 160px;
-                font-size: 11px;
-                padding: 8px 0;
-            }
+        .github-fork-ribbon.right-top:before {
+            background-color: #090;
         }
     </style>
 </head>
 
 <body>
-    <!-- GitHub 리본 -->
-    <div class="github-ribbon">
-        <a href="https://github.com/bluetsys/crime-korea" target="_blank">
-            Fork me on GitHub
-        </a>
-    </div>
+    <a class="github-fork-ribbon right-top" href="https://github.com/bluetsys/crime-korea"
+        data-ribbon="Fork me on GitHub" title="Fork me on GitHub" target="_blank">Fork me on GitHub</a>
 
     <div class="container">
         <h1>한국 연도별 범죄율 지도 (2014-2023)</h1>
@@ -384,6 +326,71 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/topojson@3"></script>
     <script>
+        function _$(selector) {
+            const elements = typeof selector === 'string'
+                ? document.querySelectorAll(selector)
+                : [selector];
+
+            return {
+                elements,
+
+                // 첫 번째 요소 반환
+                get first() {
+                    return this.elements[0];
+                },
+
+                each(callback) {
+                    this.elements.forEach((el, idx) => callback.call(el, el, idx));
+                    return this;
+                },
+
+                addClass(className) {
+                    this.each(el => el.classList.add(className));
+                    return this;
+                },
+
+                removeClass(className) {
+                    this.each(el => el.classList.remove(className));
+                    return this;
+                },
+
+                on(event, handler) {
+                    this.each(el => el.addEventListener(event, handler));
+                    return this;
+                },
+
+                css(prop, value) {
+                    this.each(el => el.style[prop] = value);
+                    return this;
+                },
+
+                text(value) {
+                    if (value === undefined) {
+                        return this.first ? this.first.textContent : '';
+                    }
+                    this.each(el => el.textContent = value);
+                    return this;
+                },
+
+                html(value) {
+                    if (value === undefined) {
+                        return this.first ? this.first.innerHTML : '';
+                    }
+                    this.each(el => el.innerHTML = value);
+                    return this;
+                },
+
+                val(value) {
+                    if (value === undefined) {
+                        return this.first ? this.first.value : '';
+                    }
+                    this.each(el => el.value = value);
+                    return this;
+                }
+            };
+        }
+    </script>
+    <script>
         // 전역 변수
         let mapData;
         let crimeData = {};
@@ -432,9 +439,9 @@
             const centerX = (centerScreenX - translateX) / scale;
             const centerY = (centerScreenY - translateY) / scale;
 
-            document.getElementById('centerX').textContent = centerX.toFixed(2);
-            document.getElementById('centerY').textContent = centerY.toFixed(2);
-            document.getElementById('zoomLevel').textContent = scale.toFixed(2);
+            _$('#centerX').text(centerX.toFixed(2));
+            _$('#centerY').text(centerY.toFixed(2));
+            _$('#zoomLevel').text(scale.toFixed(2));
         }
 
         // 툴팁 요소
@@ -573,7 +580,7 @@
 
         // 색상 스케일 변경 함수
         function updateColorScheme() {
-            currentColorScheme = document.getElementById('colorScheme').value;
+            currentColorScheme = _$('#colorScheme').val();
             colorScale = createColorScale();
             updateMapColors();
             updateLegend();
@@ -582,8 +589,8 @@
         // 연도 업데이트
         function updateYear(year) {
             currentYear = parseInt(year);
-            document.getElementById('yearDisplay').textContent = `${currentYear}년`;
-            document.getElementById('yearSlider').value = currentYear;
+            _$('#yearDisplay').text(`${currentYear}년`);
+            _$('#yearSlider').val(currentYear);
             updateMapColors();
             updateNationalInfo();
         }
@@ -601,17 +608,17 @@
 
         // 재생/정지 토글
         function togglePlay() {
-            const playBtn = document.getElementById('playBtn');
+            const playBtn = _$('#playBtn');
 
             if (isPlaying) {
                 // 정지
                 clearInterval(playInterval);
                 isPlaying = false;
-                playBtn.textContent = '재생';
+                playBtn.text('재생');
             } else {
                 // 재생
                 isPlaying = true;
-                playBtn.textContent = '정지';
+                playBtn.text('정지');
 
                 playInterval = setInterval(() => {
                     if (currentYear >= 2023) {
@@ -635,7 +642,7 @@
         // 전국 정보 업데이트
         function updateNationalInfo() {
             const nationalAvg = crimeData[currentYear]['전국'];
-            document.getElementById('nationalAverage').textContent = `${nationalAvg.toFixed(1)}건`;
+            _$('#nationalAverage').text(`${nationalAvg.toFixed(1)}건`);
 
             // 전년 대비 증감 표시
             if (currentYear > 2014) {
@@ -645,16 +652,17 @@
                 const direction = change > 0 ? '↗' : change < 0 ? '↘' : '→';
                 const color = change > 0 ? 'red' : change < 0 ? 'blue' : 'gray';
 
-                document.getElementById('trendDirection').innerHTML =
-                    `<span style="color: ${color}">${direction} ${Math.abs(changePercent)}%</span>`;
+                _$('#trendDirection').html(
+                    `<span style="color: ${color}">${direction} ${Math.abs(changePercent)}%</span>`
+                );
             } else {
-                document.getElementById('trendDirection').textContent = '기준년도';
+                _$('#trendDirection').text('기준년도');
             }
         }
 
         // 범례 업데이트
         function updateLegend() {
-            const legendContent = document.getElementById('legendContent');
+            const legendContent = _$('#legendContent');
 
             // 전체 연도 데이터에서 범위 계산
             let allValues = [];
@@ -702,7 +710,7 @@
                 색상: ${schemeNames[currentColorScheme] || currentColorScheme}
             </div>`;
 
-            legendContent.innerHTML = legendHTML;
+            legendContent.html(legendHTML);
         }
 
         // 데이터 로드 함수들
@@ -879,7 +887,7 @@
 
         // 레이블 표시/숨기기 토글
         function toggleLabels() {
-            const showLabels = document.getElementById('showLabels').checked;
+            const showLabels = _$('#showLabels').first.checked;
             g.selectAll(".province-label")
                 .style("display", showLabels ? "block" : "none");
         }
