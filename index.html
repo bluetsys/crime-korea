@@ -738,7 +738,7 @@
             console.log("지도 그리기 시작");
 
             // TopoJSON을 GeoJSON으로 변환
-            const geojson = topojson.feature(mapData, mapData.objects.www);
+            const geojson = topojson.feature(mapData, mapData.objects.BND_SIDO_PG);
             console.log("GeoJSON 변환 완료:", geojson);
 
             // 좌표 경계 계산

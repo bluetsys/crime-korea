@@ -98,6 +98,30 @@ python -m http.server 8000
 # 브라우저에서 http://localhost:8000 접속
 ```
 
+## 🏃‍♂️ 사용자가 직접 SHP파일을 다운로드 해서 작업시
+
+### mapshaper tool 설치
+```
+# npm이 설치 되어 있다는 가정
+npm install -g mapshaper
+```
+
+### mapshaper tool로 todoJSON 파일 생성 방법
+``` bash
+# mapshaper [SHP파일경로] -simplify 5% -o format=topojson [topojson파일경로]
+mapshaper BND_SIDO_PG.shp -simplify 1% -o format=topojson ../map.json
+
+# 직접 생성시 javascript 부분을 수정 해아 합니다.
+# index.html파일내 script에 drawMap함수(737라인) 수정
+# const geojson = topojson.feature(mapData, mapData.objects.www);
+# ->
+# const geojson = topojson.feature(mapData, mapData.objects.[SHP파일경로(확장자제외)]);
+# const geojson = topojson.feature(mapData, mapData.objects.BND_SIDO_PG);
+```
+
+### 직접 생성시
+- **Mapshaper CLI 문서**: [Mapshaper](https://github.com/mbloch/mapshaper/wiki/Introduction-to-the-Command-Line-Tool)
+
 ## 📄 라이선스
 
 이 프로젝트는 오픈소스이며, 교육 및 연구 목적으로 자유롭게 사용할 수 있습니다. 단 쿠팡 빼고 매출 규모 10조원 이상 기업에서 이용시 10억원의
