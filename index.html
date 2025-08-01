@@ -281,8 +281,8 @@
             <div class="color-scheme-selector">
                 <label for="colorScheme">색상 스케일</label>
                 <select id="colorScheme" onchange="updateColorScheme()">
-                    <option value="reds">빨간색 (기본)</option>
-                    <option value="blues">파란색</option>
+                    <option value="blues">파란색 (기본)</option>
+                    <option value="reds">빨간색</option>
                     <option value="greens">초록색</option>
                     <option value="oranges">주황색</option>
                     <option value="purples">보라색</option>
@@ -396,7 +396,7 @@
         let crimeData = {};
         let sidoMapping = {};
         let currentYear = 2014;
-        let currentColorScheme = 'reds';
+        let currentColorScheme = 'blues';
         let colorScale;
         let g;
         let isPlaying = false;
@@ -545,8 +545,8 @@
         // 색상 스케일 함수 반환
         function getColorInterpolator(scheme) {
             switch (scheme) {
-                case 'reds': return d3.interpolateReds;
                 case 'blues': return d3.interpolateBlues;
+                case 'reds': return d3.interpolateReds;
                 case 'greens': return d3.interpolateGreens;
                 case 'oranges': return d3.interpolateOranges;
                 case 'purples': return d3.interpolatePurples;
@@ -554,7 +554,7 @@
                 case 'plasma': return d3.interpolatePlasma;
                 case 'turbo': return d3.interpolateTurbo;
                 case 'spectral': return d3.interpolateSpectral;
-                default: return d3.interpolateReds;
+                default: return d3.interpolateBlues;
             }
         }
 
@@ -700,8 +700,8 @@
 
             // 색상 스케일 정보 추가
             const schemeNames = {
-                'reds': '빨간색',
                 'blues': '파란색',
+                'reds': '빨간색',
                 'greens': '초록색',
                 'oranges': '주황색',
                 'purples': '보라색',
@@ -858,8 +858,26 @@
                 .enter()
                 .append("text")
                 .attr("class", "province-label")
-                .attr("x", d => path.centroid(d)[0])
-                .attr("y", d => path.centroid(d)[1])
+                .attr("x", d => {
+                    const centroid = path.centroid(d);
+                    const name = d.properties.SIDO_NM;
+                    
+                    // 경기도는 특별히 위치 조정
+                    if (name === '경기도') {
+                        return centroid[0] + 15;
+                    }
+                    return centroid[0];
+                })
+                .attr("y", d => {
+                    const centroid = path.centroid(d);
+                    const name = d.properties.SIDO_NM;
+                    
+                    // 경기도는 특별히 위치 조정
+                    if (name === '경기도') {
+                        return centroid[1] + 25;
+                    }
+                    return centroid[1];
+                })
                 .text(d => {
                     // 시도명을 적절한 줄임말로 표시
                     const name = d.properties.SIDO_NM;
