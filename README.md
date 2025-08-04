@@ -61,7 +61,7 @@
 - **기간**: 2014년 ~ 2023년
 
 ### 지도 데이터
-- **출처**: [브이월드 - 시도경계 지도 SHP](http://vworld.kr/dtmk/dtmk_ntads_s002.do?searchKeyword=&searchSvcCde=&searchOrganization=&searchBrmCode=&searchTagList=&searchFrm=&pageIndex=1&gidmCd=01&gidsCd=0102&sortType=00&svcCde=MK&dsId=30016&listPageIndex=1)
+- **출처**: [브이월드 - (센서스경계)시도경계](http://vworld.kr/dtmk/dtmk_ntads_s002.do?searchKeyword=&searchSvcCde=&searchOrganization=&searchBrmCode=&searchTagList=&searchFrm=&pageIndex=1&gidmCd=01&gidsCd=0102&sortType=00&svcCde=MK&dsId=30016&listPageIndex=1)
 - **형식**: TopoJSON (원본: Shapefile)
 
 ## 🔧 데이터 처리 도구
